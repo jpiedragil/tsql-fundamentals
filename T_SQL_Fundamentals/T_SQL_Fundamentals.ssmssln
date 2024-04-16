@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# SQL Server Management Studio Solution File, Format Version 20.00
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Chapter01", "Chapter01\Chapter01.ssmssqlproj", "{2D84EBAD-BA9A-47F8-8DCF-16AAAD197485}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Chapter02", "Chapter02\Chapter02.ssmssqlproj", "{B4C5C842-9514-45AD-A65F-663260DA71AF}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Chapter03", "Chapter03\Chapter03.ssmssqlproj", "{2F95E516-8FA5-494B-8C23-5F884F3B1B25}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Chapter04", "Chapter04\Chapter04.ssmssqlproj", "{9CF9873C-8DC5-49D9-8C58-1F3BAC028E74}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Chapter05", "Chapter05\Chapter05.ssmssqlproj", "{D315102A-F7FE-487D-971F-F69AC04EDB6B}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Chapter06", "Chapter06\Chapter06.ssmssqlproj", "{2536696D-EE1B-44D1-8DD9-2C2057B51F67}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Chapter07", "Chapter07\Chapter07.ssmssqlproj", "{393D2CE6-3AD7-46AE-92E7-74095FAF6336}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Chapter08", "Chapter08\Chapter08.ssmssqlproj", "{BB19150B-62B7-4D61-8CCF-3002AC6DC420}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Chapter09", "Chapter09\Chapter09.ssmssqlproj", "{253586A3-390D-4B96-B3F8-63073E066256}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Chapter10", "Chapter10\Chapter10.ssmssqlproj", "{4E1FE7A2-CE42-4F4F-A11D-CAF8D9888AFF}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Chapter11", "Chapter11\Chapter11.ssmssqlproj", "{E6FF2973-CCF1-4EB6-8AB2-54513F68EDB7}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Chapter12", "Chapter12\Chapter12.ssmssqlproj", "{033FCD04-EA05-474D-9920-7C9483FA32B7}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "AdditionalScripts", "AdditionalScripts\AdditionalScripts.ssmssqlproj", "{AB2F45FC-3D17-4945-858A-C97AC7FD6CE6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Default|Default = Default|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D84EBAD-BA9A-47F8-8DCF-16AAAD197485}.Default|Default.ActiveCfg = Default
+		{904A82BA-2659-41D1-8F03-811F415EAFC0}.Default|Default.ActiveCfg = Default
+		{B4C5C842-9514-45AD-A65F-663260DA71AF}.Default|Default.ActiveCfg = Default
+		{2F95E516-8FA5-494B-8C23-5F884F3B1B25}.Default|Default.ActiveCfg = Default
+		{9CF9873C-8DC5-49D9-8C58-1F3BAC028E74}.Default|Default.ActiveCfg = Default
+		{D315102A-F7FE-487D-971F-F69AC04EDB6B}.Default|Default.ActiveCfg = Default
+		{2536696D-EE1B-44D1-8DD9-2C2057B51F67}.Default|Default.ActiveCfg = Default
+		{393D2CE6-3AD7-46AE-92E7-74095FAF6336}.Default|Default.ActiveCfg = Default
+		{BB19150B-62B7-4D61-8CCF-3002AC6DC420}.Default|Default.ActiveCfg = Default
+		{253586A3-390D-4B96-B3F8-63073E066256}.Default|Default.ActiveCfg = Default
+		{4E1FE7A2-CE42-4F4F-A11D-CAF8D9888AFF}.Default|Default.ActiveCfg = Default
+		{E6FF2973-CCF1-4EB6-8AB2-54513F68EDB7}.Default|Default.ActiveCfg = Default
+		{033FCD04-EA05-474D-9920-7C9483FA32B7}.Default|Default.ActiveCfg = Default
+		{AB2F45FC-3D17-4945-858A-C97AC7FD6CE6}.Default|Default.ActiveCfg = Default
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EBF3CCAD-9D37-41CB-9BF4-FDE692DC2933}
+	EndGlobalSection
+EndGlobal
