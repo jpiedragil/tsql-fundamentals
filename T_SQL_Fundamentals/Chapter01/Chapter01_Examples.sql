@@ -224,3 +224,120 @@ FROM
 ORDER BY
     orderdate, orderid
 OFFSET 50 ROWS FETCH NEXT 25 ROWS ONLY;
+
+--------------------------------------------------------------------------------
+-- Windows Functions
+--------------------------------------------------------------------------------
+
+-- Example 20
+    SELECT
+        orderid
+        , custid
+        , val
+        , ROW_NUMBER() OVER(
+            PARTITION BY custid
+            ORDER BY val
+            ) AS rownum
+    FROM
+        Sales.OrderValues
+    ORDER BY
+        custid, val;
+
+--------------------------------------------------------------------------------
+-- Predicates and operators
+--------------------------------------------------------------------------------
+
+-- Example 21: The IN predicate
+SELECT
+    orderid
+    , empid
+    , orderdate
+FROM
+    Sales.Orders
+WHERE
+    orderid IN(10248, 10249, 10250);
+
+-- Example 22: The BETWEEN predicate.
+SELECT
+    orderid
+    , empid
+    , orderdate
+FROM
+    Sales.Orders
+WHERE
+    orderid BETWEEN 10300 AND 10310;
+
+-- Example 23: The LIKE predicate.
+SELECT
+    empid
+    , firstname
+    , lastname
+FROM
+    HR.Employees
+WHERE
+    lastname LIKE N'D%';
+
+-- Example 23: Comparison operators.
+SELECT
+    orderid
+    , empid
+    , orderdate
+FROM
+    Sales.Orders
+WHERE
+    orderdate >= '20220101';
+
+-- Example 24: Comparison operators.
+SELECT
+    orderid
+    , empid
+    , orderdate
+FROM
+    Sales.Orders
+WHERE
+    orderdate >= '20220101'
+    AND empid NOT IN(1, 3, 5);
+
+-- Example 25: Arithmetic operators.
+SELECT
+    orderid
+    , productid
+    , qty
+    , unitprice
+    , discount
+    , qty * unitprice * (1 - discount) AS val
+FROM
+    Sales.OrderDetails;
+
+-- Example 26: Operator's precedence.
+SELECT
+    orderid
+    , custid
+    , empid
+    , orderdate
+FROM
+    Sales.Orders
+WHERE
+    custid = 1
+    AND empid IN(1, 3, 5)
+    OR  custid = 85
+    AND empid IN (2, 4, 6);
+
+-- Example 27: Example 26 rewritten for clarity.
+SELECT 
+    orderid
+    , custid
+    , empid
+    , orderdate
+FROM
+    Sales.Orders
+WHERE
+    (
+        custid = 1
+        AND empid IN(1, 3, 5)
+    )
+    OR
+    (
+        custid = 85
+        AND empid IN(2, 4, 6)
+    );
