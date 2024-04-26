@@ -341,3 +341,151 @@ WHERE
         custid = 85
         AND empid IN(2, 4, 6)
     );
+
+--------------------------------------------------------------------------------
+-- Case expressions
+--------------------------------------------------------------------------------
+
+-- Example 27
+SELECT
+    supplierid
+    , COUNT(*) AS numproducts
+    , CASE COUNT(*) % 2
+        WHEN 0 THEN 'Even'
+        WHEN 1 THEN 'Odd'
+        ELSE 'Unknown'
+        END AS countparity
+FROM
+    Production.Products
+GROUP BY
+    supplierid;
+
+-- Example 28
+SELECT
+    orderid
+    , custid
+    , val
+    , CASE
+        WHEN val < 1000.00  THEN 'Less than 1000'
+        WHEN val <= 3000.00 THEN 'Between 1000 and 3000'
+        WHEN val > 3000.00  THEN 'More than 3000'
+        ELSE 'Unknown'
+        END AS valuecategory
+FROM
+    Sales.OrderValues;
+
+--------------------------------------------------------------------------------
+-- NULLs
+--------------------------------------------------------------------------------
+
+-- Example 29
+SELECT
+    custid
+    , country
+    , region
+    , city
+FROM
+    Sales.Customers
+WHERE
+    region = N'WA';
+
+-- Example 30
+SELECT
+    custid
+    , country
+    , region
+    , city
+FROM
+    Sales.Customers
+WHERE
+    region IS NOT DISTINCT FROM N'WA';
+
+-- Example 31
+SELECT
+    custid
+    , country
+    , region
+    , city
+FROM
+    Sales.Customers
+WHERE
+    region <> N'WA';
+
+-- Example 32
+SELECT
+    custid
+    , country
+    , region
+    , city
+FROM
+    Sales.Customers
+WHERE
+    region = NULL;
+
+-- Example 33
+SELECT
+    custid
+    , country
+    , region
+    , city
+FROM
+    Sales.Customers
+WHERE
+    region IS NULL;
+
+-- Example 34
+SELECT
+    custid
+    , country
+    , region
+    , city
+FROM
+    Sales.Customers
+WHERE
+    region <> N'WA'
+    OR region IS NULL;
+
+-- Example 35
+SELECT
+    custid
+    , country
+    , region
+    , city
+FROM
+    Sales.Customers
+WHERE
+    region IS DISTINCT FROM N'WA';
+
+--------------------------------------------------------------------------------
+-- The GREATEST and LEAST functions.
+--------------------------------------------------------------------------------
+
+-- Example 36
+SELECT
+    orderid
+    , requireddate
+    , shippeddate
+    , GREATEST(requireddate, shippeddate) AS latestdate
+    , LEAST(requireddate, shippeddate) AS earliestdate
+FROM
+    Sales.Orders
+WHERE
+    custid = 8;
+
+-- Example 37
+SELECT
+    orderid
+    , requireddate
+    , shippeddate
+    , CASE
+        WHEN requireddate > shippeddate OR shippeddate IS NULL THEN requireddate
+        ELSE shippeddate
+        END AS latestdate
+    , CASE
+        WHEN requireddate < shippeddate OR shippeddate IS NULL THEN requireddate
+        ELSE shippeddate
+        END AS earliestdate
+FROM
+    Sales.Orders
+WHERE
+    custid = 8;
