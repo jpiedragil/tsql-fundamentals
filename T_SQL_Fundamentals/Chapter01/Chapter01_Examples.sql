@@ -230,18 +230,18 @@ OFFSET 50 ROWS FETCH NEXT 25 ROWS ONLY;
 --------------------------------------------------------------------------------
 
 -- Example 20
-    SELECT
-        orderid
-        , custid
-        , val
-        , ROW_NUMBER() OVER(
-            PARTITION BY custid
-            ORDER BY val
-            ) AS rownum
-    FROM
-        Sales.OrderValues
-    ORDER BY
-        custid, val;
+SELECT
+    orderid
+    , custid
+    , val
+    , ROW_NUMBER() OVER(
+        PARTITION BY custid
+        ORDER BY val
+    ) AS rownum
+FROM
+    Sales.OrderValues
+ORDER BY
+    custid, val;
 
 --------------------------------------------------------------------------------
 -- Predicates and operators
@@ -489,3 +489,236 @@ FROM
     Sales.Orders
 WHERE
     custid = 8;
+
+
+-- Example 38
+SELECT
+    orderid
+    , requireddate
+    , shippeddate
+    , CASE
+        WHEN requireddate > shippeddate OR shippeddate IS NULL THEN requireddate
+        ELSE shippeddate
+      END AS latestdate,
+    CASE
+        WHEN requireddate < shippeddate OR shippeddate IS NULL THEN requireddate
+        ELSE shippeddate
+    END AS earliestdate
+FROM
+    Sales.Orders
+WHERE
+    custid = 8;
+
+--------------------------------------------------------------------------------
+-- All-at-once operations.
+--------------------------------------------------------------------------------
+
+-- Example 39
+SELECT
+  orderid
+  , YEAR(orderdate) AS orderyear
+  , orderyear + 1 AS nextyear
+FROM
+    Sales.Orders;
+
+--------------------------------------------------------------------------------
+-- Working with character data.
+--------------------------------------------------------------------------------
+
+-- Example 40
+SELECT
+    name
+    , description
+FROM
+    sys.fn_helpcollations();
+
+-- Example 41
+SELECT
+    empid
+    , firstname
+    , lastname
+FROM
+    HR.Employees
+WHERE
+    lastname = N'davis';
+
+-- Example 42
+SELECT 
+    empid
+    , firstname
+    , lastname
+FROM
+    HR.Employees
+WHERE
+    lastname COLLATE Latin1_General_CS_AS = N'davis';
+
+--------------------------------------------------------------------------------
+-- String concatenation (plus-sign [+] operator and CONCAT and CONCAT_WS 
+-- functions)
+--------------------------------------------------------------------------------
+
+-- Example 43
+SELECT 
+    empid
+    , firstname + N' ' + lastname AS fullname
+FROM
+    HR.Employees;
+
+-- Example 44
+SELECT
+    custid
+    , country
+    , region
+    , city
+    , country + N',' + region + N',' + city AS location
+FROM
+    Sales.Customers;
+
+-- Example 45
+SELECT
+    custid
+    , country
+    , region
+    , city,
+    country + COALESCE(N',' + region, N'') + N',' + city AS location
+FROM
+    Sales.Customers;
+
+-- Example 46
+SELECT
+    custid
+    , country
+    , region
+    , city
+    , CONCAT(country, N',' + region, N',' + city) AS location
+FROM
+    Sales.Customers;
+
+-- Example 47
+SELECT
+    custid
+    , country
+    , region
+    , city
+    , CONCAT_WS(N',', country, region, city) AS location
+FROM
+    Sales.Customers;
+
+--------------------------------------------------------------------------------
+-- The SUBSTRING function
+--------------------------------------------------------------------------------
+
+-- Example 48
+SELECT SUBSTRING('abcde', 1, 3);
+
+--------------------------------------------------------------------------------
+-- The LEFT and RIGHT functions.
+--------------------------------------------------------------------------------
+
+-- Example 49
+SELECT RIGHT('abcde', 3);
+
+--------------------------------------------------------------------------------
+-- The LEN and DATALENGTH functions
+--------------------------------------------------------------------------------
+
+-- Example 50
+SELECT LEN(N'abcde');
+
+-- Example 51
+SELECT DATALENGTH(N'abcde');
+
+--------------------------------------------------------------------------------
+-- The CHARINDEX function
+--------------------------------------------------------------------------------
+
+-- Example 52
+SELECT CHARINDEX(' ', 'Itzik Ben-Gan');
+
+--------------------------------------------------------------------------------
+-- The CHARINDEX function
+--------------------------------------------------------------------------------
+
+-- Example 53
+SELECT PATINDEX('%[0-9]%', 'abcd123efgh');
+
+--------------------------------------------------------------------------------
+-- The REPLACE function
+--------------------------------------------------------------------------------
+
+-- Example 54
+SELECT REPLACE('1-a 2-b', '-', ':');
+
+-- Example 55
+SELECT
+    empid
+    , lastname
+    , LEN(lastname) - LEN(REPLACE(lastname, 'e', '')) AS numoccur
+FROM
+    HR.Employees;
+
+--------------------------------------------------------------------------------
+-- The TRANSLATE function
+--------------------------------------------------------------------------------
+
+-- Example 56
+SELECT REPLACE(REPLACE('123.456.789,00', '.', ','), ',', '.');
+
+-- Example 57
+SELECT REPLACE(REPLACE(REPLACE('123.456.789,00', '.', '~'), ',', '.'), '~', ',');
+
+-- Example 58
+SELECT TRANSLATE('123.456.789,00', '.,', ',.');
+
+--------------------------------------------------------------------------------
+-- The REPLICATE function
+--------------------------------------------------------------------------------
+
+-- Example 59
+SELECT REPLICATE('abc', 3);
+
+-- Example 60
+SELECT
+    supplierid
+    , RIGHT(REPLICATE('0', 9) + CAST(supplierid AS VARCHAR(10)), 10) AS strsupplierid
+FROM
+    Production.Suppliers;
+
+--------------------------------------------------------------------------------
+-- The STUFF function
+--------------------------------------------------------------------------------
+
+-- Example 61
+SELECT STUFF('xyz', 2, 1, 'abc');
+
+--------------------------------------------------------------------------------
+-- The UPPER and LOWER functions
+--------------------------------------------------------------------------------
+
+-- Example 62
+SELECT UPPER('Itzik Ben-Gan');
+
+-- Example 63
+SELECT LOWER('Itzik Ben-Gan');
+
+--------------------------------------------------------------------------------
+-- The RTRIM, LTRIM, and TRIM functions
+--------------------------------------------------------------------------------
+
+-- Example 64
+SELECT RTRIM(LTRIM('   abc   '));
+
+-- Example 65
+SELECT TRIM('   abc   ');
+
+-- Example 65
+SELECT
+    TRANSLATE(TRIM(TRANSLATE(TRIM(TRANSLATE(
+    '//\\ remove leading and trailing backward (\) and forward (/) slashes \\//',
+    ' /', '~ ')), ' \', '^ ')), ' ^~', '\/ ')
+    AS outputstring;
+
+-- Example 66
+SELECT TRIM( '/\'
+        FROM '//\\ remove leading and trailing backward (\) and forward (/) slashes \\//' )
+       AS outputstring;
